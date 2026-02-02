@@ -1,0 +1,16 @@
+# Root dependencies
+node_modules/
+
+# Root env
+.env
+.env.local
+.env.production
+
+# Build / Production
+dist/
+build/
+
+# Deployment & Credentials
+.ftp-deploy.json
+.ftp-deploy-server.json
+*.log

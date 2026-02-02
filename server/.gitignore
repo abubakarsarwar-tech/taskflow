@@ -1,0 +1,14 @@
+# Server dependencies
+node_modules/
+
+# Server env
+.env
+.env.local
+.env.production
+
+# Deployment
+.ftp-deploy-server.json
+
+# Logs
+logs/
+npm-debug.log*

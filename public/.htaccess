@@ -1,0 +1,16 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  
+  # Protect the server and env files
+  RewriteRule ^\.env$ - [F,L]
+  RewriteRule ^server/\.env$ - [F,L]
+  
+  # SPA routing fallback
+  # If the requested resource is not a file or directory, AND not in /server/
+  # serve index.html for React Router to handle
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_URI} !^/server/
+  RewriteRule ^(.*)$ /index.html [L]
+</IfModule>
