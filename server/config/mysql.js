@@ -34,11 +34,10 @@ const connectDB = async (retryCount = 0, maxRetries = 3) => {
         console.log('✅ MySQL Connected:', process.env.DB_HOST || 'localhost');
         console.log('📊 Database:', process.env.DB_NAME || 'taskflow');
 
-        // Sync models in development (creates tables if they don't exist)
-        if (process.env.NODE_ENV === 'development') {
-            await sequelize.sync({ alter: true }); // Set to true to auto-update schema
-            console.log('✅ Database synchronized (alter: true)');
-        }
+        // Sync models (creates tables if they don't exist)
+        // In production, we use alter: true one-time to ensure schema is correct
+        await sequelize.sync({ alter: true });
+        console.log('✅ Database synchronized');
 
         return sequelize;
     } catch (error) {
