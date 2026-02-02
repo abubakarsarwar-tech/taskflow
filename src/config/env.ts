@@ -2,7 +2,7 @@
 // All environment variables should be prefixed with VITE_
 
 export const API_CONFIG = {
-  URL: '/api',
+  URL: import.meta.env.VITE_API_URL || '/api',
 };
 
 export const GOOGLE_CONFIG = {
