@@ -49,6 +49,15 @@ app.use(express.urlencoded({ extended: true }));
 // Serve static files from uploads directory
 const __dirname = path.resolve();
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/server/uploads', express.static(path.join(__dirname, 'uploads')));
+
+// Request logging for debugging production paths
+app.use((req, res, next) => {
+  if (req.path !== '/api/health' && req.path !== '/server/api/health') {
+    console.log(`[${new Date().toISOString()}] ${req.method} ${req.path}`);
+  }
+  next();
+});
 
 // Root route
 app.get('/', (req, res) => {
@@ -100,14 +109,18 @@ app.get('/api', (req, res) => {
   });
 });
 
-// Routes
-app.use('/api/auth', authRoutes);
-app.use('/api/tasks', taskRoutes);
-app.use('/api/boards', boardRoutes);
-app.use('/api/invites', inviteRoutes);
-app.use('/api/notifications', notificationRoutes);
-app.use('/api/comments', commentRoutes);
-app.use('/api/uploads', uploadRoutes);
+// Routes - Supporting both /api and /server/api for Hostinger compatibility
+const apiRouter = express.Router();
+apiRouter.use('/auth', authRoutes);
+apiRouter.use('/tasks', taskRoutes);
+apiRouter.use('/boards', boardRoutes);
+apiRouter.use('/invites', inviteRoutes);
+apiRouter.use('/notifications', notificationRoutes);
+apiRouter.use('/comments', commentRoutes);
+apiRouter.use('/uploads', uploadRoutes);
+
+app.use('/api', apiRouter);
+app.use('/server/api', apiRouter);
 
 // Health check route
 app.get('/api/health', async (req, res) => {
