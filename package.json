@@ -9,6 +9,7 @@
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "preview": "vite preview",
+    "start": "node server/server.js",
     "deploy:frontend": "npm run build && node deploy.js",
     "deploy:backend": "cd server && node deploy-server.js",
     "deploy:all": "npm run deploy:frontend && npm run deploy:backend",
