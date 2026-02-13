@@ -1,8 +1,9 @@
 import axios from 'axios';
+import { API_CONFIG } from '@/config/api';
 
 // Get all boards for the authenticated user
 export async function fetchBoards(token: string) {
-  return axios.get('/api/boards', {
+  return axios.get(`${API_CONFIG.baseURL}/api/boards`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -11,7 +12,7 @@ export async function fetchBoards(token: string) {
 
 // Create a new board
 export async function createBoard(token: string, data: { name: string; description?: string; isPublic?: boolean; }) {
-  return axios.post('/api/boards', data, {
+  return axios.post(`${API_CONFIG.baseURL}/api/boards`, data, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -20,12 +21,12 @@ export async function createBoard(token: string, data: { name: string; descripti
 
 // Get all public boards (community)
 export async function fetchCommunityBoards() {
-  return axios.get('/api/boards/community');
+  return axios.get(`${API_CONFIG.baseURL}/api/boards/community`);
 }
 
 // Update a board
 export async function updateBoard(token: string, id: string, data: { name?: string; description?: string; isPublic?: boolean }) {
-  return axios.put(`/api/boards/${id}`, data, {
+  return axios.put(`${API_CONFIG.baseURL}/api/boards/${id}`, data, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -34,7 +35,7 @@ export async function updateBoard(token: string, id: string, data: { name?: stri
 
 // Delete a board
 export async function deleteBoard(token: string, id: string) {
-  return axios.delete(`/api/boards/${id}`, {
+  return axios.delete(`${API_CONFIG.baseURL}/api/boards/${id}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -43,7 +44,7 @@ export async function deleteBoard(token: string, id: string) {
 
 // Update a member's role
 export async function updateMemberRole(token: string, boardId: string, memberId: string, role: string) {
-  return axios.put(`/api/boards/${boardId}/members/${memberId}`, { role }, {
+  return axios.put(`${API_CONFIG.baseURL}/api/boards/${boardId}/members/${memberId}`, { role }, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -52,7 +53,7 @@ export async function updateMemberRole(token: string, boardId: string, memberId:
 
 // Add a member to a board by email
 export async function addMember(token: string, boardId: string, email: string) {
-  return axios.post(`/api/boards/${boardId}/members`, { email }, {
+  return axios.post(`${API_CONFIG.baseURL}/api/boards/${boardId}/members`, { email }, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -61,7 +62,7 @@ export async function addMember(token: string, boardId: string, email: string) {
 
 // Accept a board invitation
 export async function acceptMemberInvitation(token: string, boardId: string) {
-  return axios.post(`/api/boards/${boardId}/members/accept`, {}, {
+  return axios.post(`${API_CONFIG.baseURL}/api/boards/${boardId}/members/accept`, {}, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -70,7 +71,7 @@ export async function acceptMemberInvitation(token: string, boardId: string) {
 
 // Reject a board invitation
 export async function rejectMemberInvitation(token: string, boardId: string) {
-  return axios.post(`/api/boards/${boardId}/members/reject`, {}, {
+  return axios.post(`${API_CONFIG.baseURL}/api/boards/${boardId}/members/reject`, {}, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -79,7 +80,7 @@ export async function rejectMemberInvitation(token: string, boardId: string) {
 
 // Remove a member from a board
 export async function removeMember(token: string, boardId: string, memberId: string) {
-  return axios.delete(`/api/boards/${boardId}/members/${memberId}`, {
+  return axios.delete(`${API_CONFIG.baseURL}/api/boards/${boardId}/members/${memberId}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -88,5 +89,5 @@ export async function removeMember(token: string, boardId: string, memberId: str
 
 // Get board preview (public)
 export async function fetchBoardPreview(id: string) {
-  return axios.get(`/api/boards/${id}/preview`);
+  return axios.get(`${API_CONFIG.baseURL}/api/boards/${id}/preview`);
 }

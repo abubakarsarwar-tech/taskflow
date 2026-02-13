@@ -22,6 +22,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { toast } from 'sonner';
 import { playNotificationSound } from '@/lib/audio';
+import { API_CONFIG } from '@/config/api';
 
 interface SettingsModalProps {
   open: boolean;
@@ -203,7 +204,7 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
       if (!token) throw new Error('No authentication token');
 
       // Save to database via API
-      const response = await fetch('/api/auth/me', {
+      const response = await fetch(`${API_CONFIG.baseURL}/api/auth/me`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

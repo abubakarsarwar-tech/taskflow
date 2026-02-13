@@ -1,8 +1,9 @@
 import axios from 'axios';
+import { API_CONFIG } from '@/config/api';
 
 // GET /api/comments/:taskId - get all comments for a task
 export async function fetchComments(token: string, taskId: string) {
-    return axios.get(`/api/comments/${taskId}`, {
+    return axios.get(`${API_CONFIG.baseURL}/api/comments/${taskId}`, {
         headers: {
             Authorization: `Bearer ${token}`,
         },
@@ -11,7 +12,7 @@ export async function fetchComments(token: string, taskId: string) {
 
 // POST /api/comments/:taskId - add a comment
 export async function addComment(token: string, taskId: string, data: { text?: string; screenshotUrl?: string; parentId?: string; type?: string; attachments?: Array<{ url: string; name: string; type: string; size?: number }> }) {
-    return axios.post(`/api/comments/${taskId}`, data, {
+    return axios.post(`${API_CONFIG.baseURL}/api/comments/${taskId}`, data, {
         headers: {
             Authorization: `Bearer ${token}`,
         },
@@ -20,7 +21,7 @@ export async function addComment(token: string, taskId: string, data: { text?: s
 
 // PATCH /api/comments/:commentId - update a comment
 export async function updateComment(token: string, commentId: string, data: { text: string }) {
-    return axios.patch(`/api/comments/comment/${commentId}`, data, {
+    return axios.patch(`${API_CONFIG.baseURL}/api/comments/comment/${commentId}`, data, {
         headers: {
             Authorization: `Bearer ${token}`,
         },
@@ -29,7 +30,7 @@ export async function updateComment(token: string, commentId: string, data: { te
 
 // DELETE /api/comments/:commentId - delete a comment
 export async function deleteComment(token: string, commentId: string) {
-    return axios.delete(`/api/comments/comment/${commentId}`, {
+    return axios.delete(`${API_CONFIG.baseURL}/api/comments/comment/${commentId}`, {
         headers: {
             Authorization: `Bearer ${token}`,
         },
